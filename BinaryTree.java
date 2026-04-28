@@ -49,4 +49,17 @@ public class BinaryTree <E extends Comparable<E>> {
             return searchRecursive(current.getRight(), searchData);
         }
     }
+
+    public void inOrder() {
+        inOrderRecursive(root);
+        System.out.println();
+    }
+
+    private void inOrderRecursive(Node<E> current) {
+        if (current != null) {
+            inOrderRecursive(current.getLeft());
+            System.out.println(current.getData().toString() + " ");
+            inOrderRecursive(current.getRight());
+        }
+    }
 }
