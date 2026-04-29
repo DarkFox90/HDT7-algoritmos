@@ -28,34 +28,14 @@ public class lectorArchivo {
         }
     }
 
-    public void traductor(String archivo, BinaryTree<Association<String, String>> arbol) {
+    public void TraducirTexto(String archivo, Traductor traductor) {
         try (BufferedReader br = new BufferedReader(new FileReader(archivo))) {
             String linea;
             while ((linea = br.readLine()) != null) {
-                String[] palabras = linea.split("\\s+");
-                StringBuilder lineaTraducida = new StringBuilder();
-
-                for (String palabraOriginal : palabras) {
-                    String palabraLimpia = palabraOriginal.replaceAll("[^a-zA-Z]", "").toLowerCase();
-
-                    if (palabraLimpia.isEmpty()) {
-                        continue;
-                    }
-
-                    Association<String, String> aBuscar = new Association<>(palabraLimpia, "");
-                    Association<String, String> resultado = arbol.search(aBuscar);
-
-                    if (resultado != null) {
-                        lineaTraducida.append(resultado.getValue()).append(" ");
-                    } else {
-                        lineaTraducida.append("*").append(palabraOriginal).append("* ");
-                    }
-                }
-                System.out.println(lineaTraducida.toString().trim());
+                traductor.traducir(linea);
             }
         } catch (IOException e) {
-            System.err.println("error al leer el archivo" + e.getMessage());
+            System.err.println("error al leer archivo " + e.getMessage());
         }
     }
-
 }
